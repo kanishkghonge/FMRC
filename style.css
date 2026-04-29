@@ -1,0 +1,564 @@
+@import url('https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&family=Space+Mono&display=swap');
+
+/* Radiology / MRI Theme Variables */
+:root {
+    --primary: #00f2fe;       /* MRI Cyan */
+    --primary-dark: #0081a7;  /* Deep Cyan */
+    --secondary: #4facfe;     /* Bright Blue */
+    --accent: #f59e0b;        /* Amber / Heatmap Accent */
+    
+    /* Dark Theme Colors (Grayscale for MRI Vibe) */
+    --bg-color: #030303;      /* Deep Black */
+    --light-bg: #0d0d0d;      /* Off-black for contrast sections */
+    --dark-bg: #000000;       /* Pure Black */
+    
+    --card-bg: rgba(15, 15, 18, 0.8);
+    --card-border: rgba(0, 242, 254, 0.15);
+    
+    --text-main: #e2e8f0;     /* Slate 200 */
+    --text-light: #94a3b8;    /* Slate 400 */
+    --white: #ffffff;
+    
+    /* Glassmorphism */
+    --glass-bg: rgba(3, 3, 3, 0.85);
+    --glass-border: rgba(0, 242, 254, 0.2);
+    
+    /* Shadows & Glows */
+    --shadow-sm: 0 4px 6px -1px rgba(0, 0, 0, 0.5);
+    --shadow-md: 0 10px 15px -3px rgba(0, 0, 0, 0.8);
+    --shadow-glow: 0 0 15px rgba(0, 242, 254, 0.2);
+    --shadow-glow-strong: 0 0 25px rgba(0, 242, 254, 0.5);
+    
+    --transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Outfit', sans-serif;
+}
+
+body {
+    background-color: var(--bg-color);
+    color: var(--text-main);
+    line-height: 1.7;
+    overflow-x: hidden;
+}
+
+/* Animations */
+@keyframes fadeInUp {
+    from { opacity: 0; transform: translateY(20px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes pulseGlow {
+    0% { box-shadow: 0 0 15px rgba(0, 242, 254, 0.2); }
+    50% { box-shadow: 0 0 30px rgba(0, 242, 254, 0.5); }
+    100% { box-shadow: 0 0 15px rgba(0, 242, 254, 0.2); }
+}
+
+@keyframes mriScan {
+    0% { top: -10%; opacity: 0; }
+    10% { opacity: 0.8; }
+    90% { opacity: 0.8; }
+    100% { top: 110%; opacity: 0; }
+}
+
+@keyframes float {
+    0% { transform: translateY(0px); }
+    50% { transform: translateY(-10px); }
+    100% { transform: translateY(0px); }
+}
+
+.container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 24px;
+}
+
+/* Utilities */
+.text-center { text-align: center; }
+.mt-2 { margin-top: 12px; }
+.mt-4 { margin-top: 32px; }
+.pt-4 { padding-top: 32px; }
+.text-sm { font-size: 0.9em; color: var(--text-light); }
+.mono { font-family: 'Space Mono', monospace; }
+
+/* Clinical/High-Tech Navigation */
+.navbar {
+    background: var(--glass-bg);
+    backdrop-filter: blur(16px);
+    -webkit-backdrop-filter: blur(16px);
+    border-bottom: 1px solid var(--glass-border);
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+    box-shadow: var(--shadow-glow);
+    transition: var(--transition);
+}
+
+.nav-container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 16px 24px;
+}
+
+.logo {
+    display: flex;
+    align-items: center;
+    text-decoration: none;
+    font-size: 30px;
+    font-weight: 800;
+    color: var(--white);
+    letter-spacing: 1px;
+    text-shadow: 0 0 10px rgba(0, 242, 254, 0.5);
+}
+
+.logo img {
+    margin-right: 15px;
+    border-radius: 8px;
+    height: 80px !important;
+    width: auto;
+    filter: drop-shadow(0 0 8px rgba(0, 242, 254, 0.4));
+}
+
+.nav-links {
+    list-style: none;
+    display: flex;
+    gap: 24px;
+    flex-wrap: wrap;
+}
+
+.nav-links a {
+    text-decoration: none;
+    color: var(--text-light);
+    font-weight: 500;
+    font-size: 14px;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    position: relative;
+    padding: 8px 0;
+    transition: var(--transition);
+}
+
+.nav-links a::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 0%;
+    height: 2px;
+    background: var(--primary);
+    box-shadow: 0 0 10px var(--primary);
+    transition: var(--transition);
+}
+
+.nav-links a:hover, .nav-links a.active {
+    color: var(--white);
+}
+
+.nav-links a:hover::after, .nav-links a.active::after {
+    width: 100%;
+}
+
+/* Sections */
+.section {
+    padding: 100px 0;
+    position: relative;
+    border-bottom: 1px solid rgba(255,255,255,0.02);
+}
+
+.bg-light {
+    background-color: var(--light-bg);
+}
+
+.bg-dark {
+    background-color: var(--dark-bg);
+}
+
+h2 {
+    font-size: 42px;
+    font-weight: 300;
+    margin-bottom: 16px;
+    color: var(--white);
+    letter-spacing: -0.5px;
+}
+
+h2 strong {
+    font-weight: 700;
+    color: var(--primary);
+}
+
+.section-subtitle {
+    font-size: 18px;
+    color: var(--primary);
+    margin-bottom: 50px;
+    font-family: 'Space Mono', monospace;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+}
+
+/* Radiology / MRI Hero Section */
+.hero-section {
+    background-color: var(--bg-color);
+    background-image: 
+        radial-gradient(circle at center, rgba(0, 242, 254, 0.08) 0%, transparent 60%),
+        linear-gradient(rgba(0, 242, 254, 0.03) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(0, 242, 254, 0.03) 1px, transparent 1px);
+    background-size: 100% 100%, 40px 40px, 40px 40px;
+    background-position: center center;
+    color: var(--white);
+    padding: 160px 0 60px;
+    text-align: center;
+    position: relative;
+    overflow: hidden;
+}
+
+/* The Scanning Line Animation */
+.hero-section::after {
+    content: '';
+    position: absolute;
+    top: -10%;
+    left: 0;
+    width: 100%;
+    height: 4px;
+    background: var(--primary);
+    box-shadow: 0 0 30px 10px rgba(0, 242, 254, 0.4);
+    animation: mriScan 6s ease-in-out infinite;
+    pointer-events: none;
+}
+
+.hero-section h1 {
+    font-size: 64px;
+    font-weight: 800;
+    margin-bottom: 24px;
+    letter-spacing: -1px;
+    animation: fadeInUp 1s ease forwards;
+    text-shadow: 0 0 20px rgba(0, 242, 254, 0.3);
+}
+
+.hero-section .subtitle {
+    font-size: 24px;
+    font-weight: 300;
+    color: var(--text-light);
+    margin-bottom: 48px;
+    animation: fadeInUp 1s ease 0.2s forwards;
+    opacity: 0;
+}
+
+/* UI Elements & Buttons */
+.cta-button {
+    display: inline-block;
+    background: transparent;
+    color: var(--primary);
+    padding: 16px 36px;
+    border: 1px solid var(--primary);
+    border-radius: 4px;
+    text-decoration: none;
+    font-family: 'Space Mono', monospace;
+    font-weight: 700;
+    font-size: 14px;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    box-shadow: inset 0 0 0 rgba(0, 242, 254, 0), 0 0 15px rgba(0, 242, 254, 0.2);
+    transition: var(--transition);
+    position: relative;
+    overflow: hidden;
+    cursor: pointer;
+}
+
+.cta-button::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; width: 0%; height: 100%;
+    background: rgba(0, 242, 254, 0.1);
+    z-index: -1;
+    transition: var(--transition);
+}
+
+.cta-button:hover {
+    color: var(--white);
+    background: var(--primary);
+    box-shadow: 0 0 25px rgba(0, 242, 254, 0.5);
+    text-shadow: 0 0 5px rgba(255,255,255,0.5);
+    border-color: var(--primary);
+}
+
+.cta-button.outline {
+    border-color: var(--text-light);
+    color: var(--text-light);
+    box-shadow: none;
+}
+
+.cta-button.outline:hover {
+    color: var(--white);
+    border-color: var(--white);
+    background: rgba(255,255,255,0.1);
+}
+
+/* Grids */
+.grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 40px; }
+.grid-3 { display: grid; grid-template-columns: repeat(3, 1fr); gap: 30px; }
+
+/* Clinical Tech Cards */
+.card {
+    background: var(--card-bg);
+    padding: 40px;
+    border-radius: 8px;
+    border: 1px solid var(--card-border);
+    box-shadow: var(--shadow-md);
+    transition: var(--transition);
+    animation: fadeInUp 0.8s ease forwards;
+    backdrop-filter: blur(10px);
+}
+
+.card:hover {
+    transform: translateY(-4px);
+    border-color: var(--primary);
+    box-shadow: var(--shadow-glow);
+}
+
+.card h3 {
+    color: var(--white);
+    margin-bottom: 20px;
+    font-size: 24px;
+    font-weight: 600;
+    display: flex;
+    align-items: center;
+}
+
+.card h3::before {
+    content: '';
+    display: inline-block;
+    width: 12px;
+    height: 12px;
+    background: var(--primary);
+    margin-right: 12px;
+    box-shadow: 0 0 10px var(--primary);
+}
+
+.highlight-card {
+    border-color: var(--secondary);
+    background: linear-gradient(180deg, rgba(15,15,18,0.9), rgba(0,242,254,0.05));
+    animation: pulseGlow 4s infinite;
+}
+
+/* Technical Lists */
+.custom-list { list-style: none; }
+.custom-list li {
+    position: relative;
+    padding-left: 30px;
+    margin-bottom: 16px;
+    font-size: 1.05rem;
+    color: var(--text-main);
+}
+.custom-list li::before {
+    content: '+';
+    position: absolute;
+    left: 0;
+    top: -2px;
+    color: var(--primary);
+    font-family: 'Space Mono', monospace;
+    font-size: 1.2rem;
+    font-weight: bold;
+}
+
+.compact-list {
+    list-style: none;
+    margin-top: 16px;
+    counter-reset: scan-counter;
+}
+.compact-list li {
+    position: relative;
+    padding-left: 45px;
+    margin-bottom: 12px;
+    counter-increment: scan-counter;
+}
+.compact-list li::before {
+    content: "0" counter(scan-counter);
+    position: absolute;
+    left: 0;
+    top: 50%;
+    transform: translateY(-50%);
+    font-family: 'Space Mono', monospace;
+    color: var(--primary);
+    font-size: 12px;
+    background: rgba(0, 242, 254, 0.1);
+    padding: 2px 6px;
+    border: 1px solid rgba(0, 242, 254, 0.3);
+}
+
+/* Registration Steps UI */
+.steps-container {
+    margin-top: 30px;
+    position: relative;
+}
+.steps-container::before {
+    content: '';
+    position: absolute;
+    left: 24px;
+    top: 0;
+    height: 100%;
+    width: 1px;
+    background: rgba(0, 242, 254, 0.3);
+    z-index: 0;
+}
+.step {
+    display: flex;
+    margin-bottom: 40px;
+    position: relative;
+    z-index: 1;
+}
+.step-number {
+    width: 50px;
+    height: 50px;
+    background: var(--bg-color);
+    color: var(--primary);
+    border: 2px solid var(--primary);
+    border-radius: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-family: 'Space Mono', monospace;
+    font-size: 20px;
+    margin-right: 30px;
+    flex-shrink: 0;
+    box-shadow: 0 0 15px rgba(0, 242, 254, 0.2);
+}
+.step-content {
+    background: rgba(0,0,0,0.4);
+    padding: 30px;
+    border: 1px solid var(--card-border);
+    flex-grow: 1;
+}
+.step-content h4 {
+    margin-bottom: 12px;
+    color: var(--white);
+    font-size: 20px;
+    font-weight: 500;
+}
+
+.payment-methods {
+    background: rgba(255,255,255,0.02);
+    padding: 24px;
+    border-left: 4px solid var(--accent);
+    margin-top: 16px;
+}
+
+/* Review Cards - Dark Theme */
+.review-card {
+    background: var(--card-bg) !important;
+    padding: 40px 30px;
+    border-radius: 4px;
+    border: 1px solid rgba(255,255,255,0.05);
+    text-align: center;
+    transition: var(--transition);
+    animation: float 8s ease-in-out infinite;
+}
+.review-card:nth-child(2) { animation-delay: -2s; }
+.review-card:nth-child(3) { animation-delay: -4s; }
+
+.review-card:hover {
+    border-color: var(--primary);
+    box-shadow: var(--shadow-glow);
+    animation-play-state: paused;
+}
+
+.stars {
+    color: var(--primary);
+    font-size: 24px;
+    margin-bottom: 20px;
+    letter-spacing: 4px;
+    text-shadow: 0 0 8px rgba(0, 242, 254, 0.4);
+}
+
+.review-text {
+    font-style: italic;
+    margin-bottom: 24px;
+    font-size: 1.1rem;
+    color: var(--text-main);
+}
+
+.review-author {
+    font-family: 'Space Mono', monospace;
+    color: var(--secondary);
+    text-transform: uppercase;
+    font-size: 0.85rem;
+}
+
+/* Links inside text */
+a { color: var(--primary); transition: var(--transition); }
+a:hover { color: var(--white); text-shadow: 0 0 8px var(--primary); }
+
+/* Footer */
+.footer {
+    background: #000;
+    color: var(--text-light);
+    padding: 40px 0;
+    border-top: 1px solid rgba(0, 242, 254, 0.1);
+    font-family: 'Space Mono', monospace;
+    font-size: 12px;
+}
+
+/* Image Slider */
+.slider-wrapper {
+    overflow: hidden;
+    width: 100%;
+    position: relative;
+    padding: 30px 0;
+}
+.slider-wrapper::before, .slider-wrapper::after {
+    content: '';
+    position: absolute;
+    top: 0; width: 100px; height: 100%;
+    z-index: 2;
+}
+.slider-wrapper::before {
+    left: 0;
+    background: linear-gradient(to right, var(--bg-color), transparent);
+}
+.slider-wrapper::after {
+    right: 0;
+    background: linear-gradient(to left, var(--bg-color), transparent);
+}
+.slider-track {
+    display: flex;
+    width: calc(320px * 12);
+    animation: scroll 30s linear infinite;
+    gap: 20px;
+}
+.slider-track:hover {
+    animation-play-state: paused;
+}
+.slider-track img {
+    width: 300px;
+    height: 200px;
+    object-fit: cover;
+    border-radius: 8px;
+    border: 1px solid var(--card-border);
+    box-shadow: var(--shadow-glow);
+    transition: var(--transition);
+}
+.slider-track img:hover {
+    transform: scale(1.05);
+    box-shadow: var(--shadow-glow-strong);
+    border-color: var(--primary);
+}
+@keyframes scroll {
+    0% { transform: translateX(0); }
+    100% { transform: translateX(calc(-320px * 8)); }
+}
+
+/* Responsive Design */
+@media (max-width: 992px) {
+    .grid-2, .grid-3 { grid-template-columns: 1fr; }
+    .hero-section h1 { font-size: 42px; }
+}
+@media (max-width: 768px) {
+    .nav-links { justify-content: center; margin-top: 16px; }
+    .nav-container { flex-direction: column; }
+    .steps-container::before { left: 20px; }
+    .step-number { width: 40px; height: 40px; font-size: 16px; margin-right: 20px; }
+}
